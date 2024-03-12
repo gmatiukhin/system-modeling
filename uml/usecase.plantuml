@@ -1,0 +1,26 @@
+@startuml
+left to right direction
+
+actor Applicant as a
+actor Employer  as e
+
+package "Vacancy System" {
+  usecase "Create vacancy"      as cv
+  usecase "Edit vacancy"        as ev
+  usecase "Delete vacancy"      as dv
+  usecase "Close vacancy"       as clv
+  usecase "View vacancy"        as vv
+
+  usecase "Apply for vacancy"   as afv
+}
+
+e --> cv
+e --> ev
+e --> dv
+e --> vv
+e --> clv
+
+a --> vv
+a --> afv
+
+@enduml

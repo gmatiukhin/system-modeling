@@ -1,5 +1,6 @@
 render:
-	find -name "*.plantuml" | xargs -I{} curl localhost:8080/png --data-binary @{} --output {}-rendered.png
+	mkdir -p output
+	find -name "*.plantuml" | xargs -I{} curl localhost:8080/png --data-binary @{} --output output/{}-rendered.png
 clean:
 	find -name "*-rendered.png" -print -delete
 
