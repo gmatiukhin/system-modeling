@@ -1,55 +1,46 @@
 @startuml
 actor     Applicant           as a
-entity    ResponseManager     as rm
+entity    ResponseController  as rc
 entity    SearchEngine        as se
-entity    VacancyRepository   as vr
-entity    UserRepository      as ur
 database  Database            as db
 
 a --> se : search for open vacancy
 activate a
-activate se
+  activate se
+    opt apply tag filter
+    a --> se : search for tags
+    se --> db
+    activate db
+      se <-- db
+    deactivate db
+    a <-- se
+    a --> se : apply tag filter
+    end
 
-opt apply tag filter
-a --> se : apply tag filter
-se --> se : apply filter
-end
+    opt apply employer filters
+    a --> se : search employers
+    se --> db
+    activate db
+      se <-- db
+    deactivate db
+    a <-- se
+    a --> se : apply employer filter
+    end
 
-opt apply employer filters
-a --> se : search employers
-se --> ur
-activate ur
-ur --> db
-activate db
-ur <-- db
-deactivate db
-se <-- ur
-deactivate ur
-a <-- se
-a --> se : apply employer filter
-se --> se : apply filter
-end
-
-se --> vr : search database\nfor vacancies\nmatching search query\nand optional filters
-activate vr
-vr --> db
-activate db
-vr <-- db
-deactivate db
-se <-- vr
-deactivate vr
-a <-- se
-deactivate se
-
-a --> rm : respond to selected vacancy
-activate rm
-
-rm --> vr : add applicant to vacancy
-activate vr
-rm <-- vr
-deactivate vr
-a <-- rm : get confirmation
-deactivate rm
+    se --> db : search database\nfor vacancies\nmatching search query\nand optional filters
+    activate db
+      se <-- db
+    deactivate db
+    a <-- se
+  deactivate se
+  a --> rc : respond to selected vacancy
+  activate rc
+    rc --> db : create response
+    activate db
+      rc <-- db
+    deactivate db
+    a <-- rc : get confircation
+  deactivate rc
 deactivate a
 
 @enduml
