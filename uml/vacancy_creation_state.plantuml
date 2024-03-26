@@ -1,0 +1,16 @@
+@startuml
+[*] -> MainPageState: Employer login
+MainPageState: User is authenticated\nand sees the default page\nwith current vacancies
+MainPageState --> VacancyDetailState: Request info for a vacancy
+
+MainPageState --> EditVacancyState: Create new vacancy
+EditVacancyState --> MainPageState: Cancel creating
+
+VacancyDetailState --> EditVacancyState: Edit existing vacancy
+EditVacancyState --> VacancyDetailState: Cancel editing
+
+EditVacancyState --> ConfirmChangesState: Finish editing
+ConfirmChangesState --> MainPageState: Confirm or\ncancel changes
+
+MainPageState -> [*]: Logout
+@enduml

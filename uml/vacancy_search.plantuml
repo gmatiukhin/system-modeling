@@ -39,7 +39,7 @@ activate a
     activate db
       rc <-- db
     deactivate db
-    a <-- rc : get confircation
+    a <-- rc : get confirmation
   deactivate rc
 deactivate a
 
