@@ -1,7 +1,14 @@
 @startuml
-[*] -> MainPageState: Employer login
 MainPageState: User is authenticated\nand sees the default page\nwith current vacancies
+VacancyDetailState: User sees details\nabout a vacancy
+UserInfoState: Users sees info\nabout another user
+EditVacancyState: User can edit a vacancy\nusing an editor
+ConfirmChangesState: User reviews changes
+[*] -> MainPageState: Employer login
 MainPageState --> VacancyDetailState: Request info for a vacancy
+
+VacancyDetailState --> UserInfoState: Request info about an applicant
+UserInfoState --> VacancyDetailState
 
 MainPageState --> EditVacancyState: Create new vacancy
 EditVacancyState --> MainPageState: Cancel creating

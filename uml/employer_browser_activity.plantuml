@@ -1,0 +1,38 @@
+@startuml
+start
+:Employer login;
+:Read list of open vacancies;
+split
+  :Request details about a vacancy;
+  switch ()
+    case (Edit vacancy)
+      :Update vacancy information;
+      switch (Confirm update?)
+        case (Yes)
+          :Add vacancy to the list;
+          stop
+        case (No)
+          :Forget all new info;
+          stop
+      endswitch
+    case (Request applications)
+      :Select application;
+      switch (Approve?)
+        case (Yes)
+          stop
+        case (No)
+          stop
+      endswitch
+  endswitch
+split again
+  :Create new vacancy;
+  :Input new vacancy information;
+  switch (Confirm creation?)
+    case (Yes)
+      :Add vacancy to the list;
+        stop
+    case (No)
+      :Forget all new info;
+        stop
+  endswitch
+@enduml
